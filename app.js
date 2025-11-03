@@ -65,6 +65,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 
 
+
 // npm setup for mongo atlas
 const store = MongoStore.create({
   mongoUrl: dbUrl,
@@ -115,6 +116,11 @@ app.use((req , res , next) => {
 app.use("/listings" , listingRouter);
 app.use("/listings/:id/reviews" , reviewRouter);
 app.use("/" , userRouter);
+
+// homepage redirect
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 // Works in Express 5
 app.use((req, res, next) => {
